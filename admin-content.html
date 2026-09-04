@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Schemes & tips — Miyasaheb Krishi Seva Kendra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="admin-shell"></div>
+
+<div class="modal-backdrop" id="scheme-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 class="mb-0" id="scheme-modal-title">Add scheme</h3>
+      <button class="modal-close" data-close="scheme-modal">&times;</button>
+    </div>
+    <div id="scheme-modal-alert"></div>
+    <form id="scheme-form">
+      <input type="hidden" id="s-id" />
+      <div class="field"><label for="s-title">Title</label><input type="text" id="s-title" required /></div>
+      <div class="field"><label for="s-description">Description</label><textarea id="s-description" rows="3" required></textarea></div>
+      <div class="field"><label for="s-eligibility">Eligibility</label><textarea id="s-eligibility" rows="2"></textarea></div>
+      <div class="field"><label for="s-benefits">Benefits</label><textarea id="s-benefits" rows="2"></textarea></div>
+      <button type="submit" class="btn btn-primary btn-block">Save scheme</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="tip-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 class="mb-0" id="tip-modal-title">Add crop tip</h3>
+      <button class="modal-close" data-close="tip-modal">&times;</button>
+    </div>
+    <div id="tip-modal-alert"></div>
+    <form id="tip-form">
+      <input type="hidden" id="t-id" />
+      <div class="form-row">
+        <div class="field"><label for="t-crop">Crop name</label><input type="text" id="t-crop" required /></div>
+        <div class="field">
+          <label for="t-season">Season</label>
+          <select id="t-season" required>
+            <option value="Kharif">Kharif</option>
+            <option value="Rabi">Rabi</option>
+            <option value="Zaid">Zaid</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="t-content">Tip content</label><textarea id="t-content" rows="3" required></textarea></div>
+      <button type="submit" class="btn btn-primary btn-block">Save tip</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin-nav.js"></script>
+<script src="js/admin-content.js"></script>
+</body>
+</html>

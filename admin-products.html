@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Products — Miyasaheb Krishi Seva Kendra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="admin-shell"></div>
+
+<div class="modal-backdrop" id="product-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 class="mb-0" id="modal-title">Add product</h3>
+      <button class="modal-close" id="modal-close">&times;</button>
+    </div>
+    <div id="modal-alert"></div>
+    <form id="product-form">
+      <input type="hidden" id="product-id" />
+      <div class="field">
+        <label for="p-name">Product name</label>
+        <input type="text" id="p-name" required />
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="p-category">Category</label>
+          <select id="p-category" required></select>
+        </div>
+        <div class="field">
+          <label for="p-stock">Availability</label>
+          <select id="p-stock">
+            <option value="Available">Available</option>
+            <option value="Out of Stock">Out of Stock</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="p-price">Price (₹)</label>
+          <input type="number" id="p-price" min="0" step="0.01" required />
+        </div>
+        <div class="field">
+          <label for="p-unit">Unit</label>
+          <input type="text" id="p-unit" placeholder="kg, litre, unit…" required />
+        </div>
+      </div>
+      <div class="field">
+        <label for="p-description">Description</label>
+        <textarea id="p-description" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="modal-submit">Save product</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin-nav.js"></script>
+<script src="js/admin-products.js"></script>
+</body>
+</html>

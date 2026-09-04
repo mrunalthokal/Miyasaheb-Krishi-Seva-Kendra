@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Krishi Seva Kendra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<section class="section container-narrow">
+  <h2 class="mt-0">Get in touch</h2>
+  <p style="margin-bottom:1.8rem;">Have a question the site doesn't answer? Send a message and the center will follow up.</p>
+
+  <div class="card">
+    <div id="form-alert"></div>
+    <form id="contact-form" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="field">
+        <label for="mobile">Mobile number</label>
+        <input type="tel" id="mobile" maxlength="10" required />
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" id="submit-btn">Send message</button>
+    </form>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

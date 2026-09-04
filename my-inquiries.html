@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My requests — Miyasaheb Krishi Seva Kendra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<section class="section container">
+  <div class="dash-layout">
+    <aside class="dash-side">
+      <span class="dash-side-heading">My account</span>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="profile.html">My profile</a>
+      <a href="my-inquiries.html" class="active">My requests</a>
+      <span class="dash-side-heading">Explore</span>
+      <a href="products.html">Products</a>
+      <a href="schemes.html">Schemes</a>
+      <a href="crop-tips.html">Crop tips</a>
+    </aside>
+
+    <div>
+      <h2 class="mt-0">My requests</h2>
+      <p style="margin-bottom:1.6rem;">Every product request you've made, and its current status.</p>
+
+      <div class="chip-row" id="status-filter" style="margin-bottom:1.4rem;">
+        <button class="chip active" data-status="">All</button>
+        <button class="chip" data-status="Pending">Pending</button>
+        <button class="chip" data-status="Approved">Approved</button>
+        <button class="chip" data-status="Fulfilled">Fulfilled</button>
+        <button class="chip" data-status="Rejected">Rejected</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Product</th><th>Quantity</th><th>Remarks</th><th>Status</th><th>Requested on</th></tr>
+          </thead>
+          <tbody id="inquiries-body">
+            <tr><td colspan="5" class="text-muted text-center">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/my-inquiries.js"></script>
+</body>
+</html>

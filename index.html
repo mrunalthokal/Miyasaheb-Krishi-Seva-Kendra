@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Miyasaheb Krishi Seva Kendra — Farmer support and agri-input portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-eyebrow-free">Serving farmers of the district</div>
+      <h1>Your local agri-input center, now open all day online</h1>
+      <p style="font-size: 1.08rem; max-width: 46ch;">Browse seeds, fertilizers and tools, place a request in a few taps, and track it through to pickup — plus weather, crop tips and government scheme updates in one place.</p>
+      <div class="hero-actions">
+        <a href="products.html" class="btn btn-primary">Browse products</a>
+        <a href="register.html" class="btn btn-outline">Register as a farmer</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b id="stat-products">–</b><span>Products listed</span></div>
+        <div class="hero-stat"><b>4</b><span>Categories stocked</span></div>
+        <div class="hero-stat"><b>Weekly</b><span>Crop tip updates</span></div>
+      </div>
+    </div>
+    <div id="weather-chip-holder">
+      <div class="weather-chip">
+        <div class="skeleton" style="height:110px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <h2>Shop by category</h2>
+      <p>Everything the season needs, sorted the way you think about it.</p>
+    </div>
+    <a href="products.html" class="btn btn-outline btn-sm">View all products</a>
+  </div>
+  <div class="grid-4" id="category-grid">
+    <div class="card-flat skeleton" style="height:110px;"></div>
+    <div class="card-flat skeleton" style="height:110px;"></div>
+    <div class="card-flat skeleton" style="height:110px;"></div>
+    <div class="card-flat skeleton" style="height:110px;"></div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <h2>Recently added products</h2>
+      <p>Fresh stock at the center, updated as it arrives.</p>
+    </div>
+  </div>
+  <div class="grid-4" id="featured-products">
+    <div class="product-card skeleton" style="height:260px;"></div>
+    <div class="product-card skeleton" style="height:260px;"></div>
+    <div class="product-card skeleton" style="height:260px;"></div>
+    <div class="product-card skeleton" style="height:260px;"></div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="grid-3">
+    <div class="card-flat">
+      <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10L12 4L20 10V21H14V15H10V21H4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <h3>Government schemes</h3>
+      <p>Stay current on income support, crop insurance and soil health programs you may be eligible for.</p>
+      <a href="schemes.html">See schemes →</a>
+    </div>
+    <div class="card-flat">
+      <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3C12 3 6 8 6 13a6 6 0 0012 0c0-5-6-10-6-10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <h3>Seasonal crop tips</h3>
+      <p>Sowing windows, irrigation timing and pest watch-outs shared by the center's agronomists.</p>
+      <a href="crop-tips.html">Read tips →</a>
+    </div>
+    <div class="card-flat">
+      <div class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <h3>Local weather</h3>
+      <p>Check today's forecast for your district before you plan spraying, sowing or harvest.</p>
+      <a href="weather.html">Check weather →</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

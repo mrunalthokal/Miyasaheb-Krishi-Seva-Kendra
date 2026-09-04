@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Register — MiyasahebKrishi Seva Kendra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="card">
+      <div class="auth-head">
+        <h2>Create your farmer account</h2>
+        <p class="mb-0">Register once to request products and track them anytime.</p>
+      </div>
+      <div id="form-alert"></div>
+      <form id="register-form" novalidate>
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Ramesh Patil" required />
+        </div>
+        <div class="field">
+          <label for="mobile">Mobile number</label>
+          <input type="tel" id="mobile" placeholder="9876543210" maxlength="10" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="At least 6 characters" required />
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="village">Village (optional)</label>
+            <input type="text" id="village" placeholder="Village name" />
+          </div>
+          <div class="field">
+            <label for="landSize">Land size in acres (optional)</label>
+            <input type="number" id="landSize" min="0" step="0.1" placeholder="2.5" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="address">Address (optional)</label>
+          <textarea id="address" rows="2" placeholder="House no, street, taluka"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Create account</button>
+      </form>
+      <p class="text-center" style="margin-top:1.2rem; font-size:0.9rem;">Already registered? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>

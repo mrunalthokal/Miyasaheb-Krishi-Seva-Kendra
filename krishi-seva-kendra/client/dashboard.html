@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — Miyasaheb Krishi Seva Kendra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<section class="section container">
+  <div class="dash-layout">
+    <aside class="dash-side">
+      <span class="dash-side-heading">My account</span>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="profile.html">My profile</a>
+      <a href="my-inquiries.html">My requests</a>
+      <span class="dash-side-heading">Explore</span>
+      <a href="products.html">Products</a>
+      <a href="schemes.html">Schemes</a>
+      <a href="crop-tips.html">Crop tips</a>
+    </aside>
+
+    <div>
+      <h2 id="welcome-heading" class="mt-0">Welcome back</h2>
+      <p style="margin-bottom:2rem;">Here's a quick look at your activity with the center.</p>
+
+      <div class="grid-3" style="margin-bottom:2.5rem;">
+        <div class="stat-card"><b id="stat-total">–</b><span>Total requests</span></div>
+        <div class="stat-card"><b id="stat-pending">–</b><span>Pending</span></div>
+        <div class="stat-card"><b id="stat-fulfilled">–</b><span>Fulfilled</span></div>
+      </div>
+
+      <div class="section-head">
+        <h3 class="mb-0">Recent requests</h3>
+        <a href="my-inquiries.html" class="btn btn-outline btn-sm">View all</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Product</th><th>Quantity</th><th>Status</th><th>Requested on</th></tr>
+          </thead>
+          <tbody id="recent-inquiries">
+            <tr><td colspan="4" class="text-muted text-center">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

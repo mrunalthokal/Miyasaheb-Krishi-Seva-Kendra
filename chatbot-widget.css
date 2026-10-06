@@ -1,0 +1,96 @@
+/* Krishi Mitra floating chat widget — self-contained styles, safe to drop
+   into any page. Namespaced under .km- to avoid clashing with site CSS. */
+
+.km-launcher {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #1f6d3d;
+  border: 3px solid #e3a008;
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px -6px rgba(0,0,0,0.4);
+  z-index: 9998;
+  font-family: sans-serif;
+}
+.km-launcher:hover { transform: translateY(-2px); }
+
+.km-panel {
+  position: fixed;
+  bottom: 92px;
+  right: 22px;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  height: 480px;
+  max-height: calc(100vh - 140px);
+  background: #fffdf8;
+  border: 1px solid #e3d9c3;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px -8px rgba(0,0,0,0.35);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: "Mukta", sans-serif;
+  color: #2b2b22;
+}
+.km-panel.km-open { display: flex; }
+
+.km-head {
+  background: #163f26;
+  color: #fff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.km-head strong { font-family: "Baloo 2", sans-serif; font-size: 0.95rem; }
+.km-head span { font-size: 0.72rem; color: #cfe3d3; display: block; }
+.km-close {
+  margin-left: auto; background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer;
+}
+
+.km-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  background: #fbf8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.km-msg {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+.km-msg-bot { align-self: flex-start; background: #fff; border: 1px solid #e3d9c3; border-bottom-left-radius: 3px; }
+.km-msg-user { align-self: flex-end; background: #1f6d3d; color: #fff; border-bottom-right-radius: 3px; }
+.km-msg-error { align-self: flex-start; background: #fbe6e2; border: 1px solid #f0b7ab; color: #7f2c1c; }
+
+.km-input-row { display: flex; gap: 6px; padding: 10px; border-top: 1px solid #e3d9c3; background: #fffdf8; }
+.km-input-row input {
+  flex: 1; padding: 9px 12px; border: 2px solid #e3d9c3; border-radius: 999px; font-family: inherit; font-size: 0.88rem;
+}
+.km-input-row input:focus { outline: none; border-color: #1f6d3d; }
+.km-input-row button {
+  background: #e3a008; color: #163f26; border: none; border-radius: 50%;
+  width: 36px; height: 36px; cursor: pointer; flex: none; font-size: 1rem;
+}
+.km-input-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 420px) {
+  .km-panel { right: 16px; left: 16px; width: auto; }
+  .km-launcher { right: 16px; }
+}

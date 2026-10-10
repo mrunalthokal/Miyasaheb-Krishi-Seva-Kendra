@@ -1,0 +1,26 @@
+# Krishi Seva Kendra — Node.js Backend Dependencies
+# This is a Node.js project. Install dependencies using:
+#   npm install
+# (NOT pip install — this is not a Python project)
+
+# ── Runtime Dependencies ──────────────────────────────────────────
+axios@^1.7.2               # HTTP client for external API calls (OpenWeatherMap)
+bcryptjs@^2.4.3            # Password hashing
+cors@^2.8.5                # Cross-Origin Resource Sharing middleware
+dotenv@^16.6.1             # Load environment variables from .env file
+express@^4.19.2            # Web framework / HTTP server
+express-validator@^7.1.0   # Request validation middleware
+jsonwebtoken@^9.0.2        # JWT authentication tokens
+mongoose@^8.24.4           # MongoDB ODM (Object Document Mapper)
+morgan@^1.10.0             # HTTP request logger middleware
+nodemailer@^10.0.16        # Send emails via SMTP (Gmail)
+razorpay@^2.9.8            # Razorpay payment gateway integration
+twilio@^6.1.2              # WhatsApp / SMS notifications via Twilio
+
+# ── Dev Dependencies (not needed in production) ───────────────────
+nodemon@^3.1.4             # Auto-restart server on file changes (dev only)
+
+# ── Runtime Requirements ──────────────────────────────────────────
+# Node.js  : v18 or higher
+# npm      : v9 or higher
+# MongoDB  : Atlas cloud cluster (see MONGO_URI in .env)

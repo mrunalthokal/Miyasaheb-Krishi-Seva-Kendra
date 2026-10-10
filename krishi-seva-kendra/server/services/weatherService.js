@@ -4,7 +4,7 @@ const axios = require('axios');
 // Keeps the API key on the server, per SRS section 6.2.
 async function getWeatherByDistrict(district) {
   const apiKey = process.env.OPENWEATHER_API_KEY;
-  const place = district || process.env.DEFAULT_DISTRICT || 'Ahilyanagar';
+  const place = district || process.env.DEFAULT_DISTRICT || 'Pune';
 
   if (!apiKey || apiKey === 'your_openweathermap_api_key_here') {
     const err = new Error(
@@ -17,12 +17,13 @@ async function getWeatherByDistrict(district) {
   const url = 'https://api.openweathermap.org/data/2.5/weather';
   const forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
-  const [currentRes, forecastRes] = await Promise.all([
-    axios.get(url, { params: { q: `${place},IN`, appid: apiKey, units: 'metric' } }),
-    axios.get(forecastUrl, { params: { q: `${place},IN`, appid: apiKey, units: 'metric' } }),
-  ]);
+  try {
+    const [currentRes, forecastRes] = await Promise.all([
+      axios.get(url, { params: { q: `${place},IN`, appid: apiKey, units: 'metric' } }),
+      axios.get(forecastUrl, { params: { q: `${place},IN`, appid: apiKey, units: 'metric' } }),
+    ]);
 
-  const current = currentRes.data;
+    const current = currentRes.data;
   // Take one forecast point every ~24h (API returns 3-hour steps) for a short-term outlook
   const forecast = forecastRes.data.list
     .filter((_, idx) => idx % 8 === 0)
@@ -46,6 +47,13 @@ async function getWeatherByDistrict(district) {
     windSpeed: current.wind.speed,
     forecast,
   };
+  } catch (err) {
+    if (err.response?.status === 404) {
+      const e = new Error(`City "${place}" not found. Please enter a valid city name.`);
+      e.status = 404;
+      throw e;
+    }
+    throw err;
+  }
 }
-
 module.exports = { getWeatherByDistrict };

@@ -6,6 +6,7 @@ const schemeSchema = new mongoose.Schema(
     description: { type: String, required: true },
     eligibility: { type: String, default: '' },
     benefits: { type: String, default: '' },
+    officialLink: { type: String, default: '' },
   },
   { timestamps: true }
 );

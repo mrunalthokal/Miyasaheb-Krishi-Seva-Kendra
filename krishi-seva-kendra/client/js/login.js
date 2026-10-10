@@ -27,7 +27,8 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const data = await api.post('/auth/login', { mobile, password }, { auth: false });
     Auth.saveSession(data.token, data.user);
     showToast('Logged in successfully.');
-    window.location.href = 'dashboard.html';
+    const redirect = new URLSearchParams(window.location.search).get('redirect');
+    window.location.href = redirect || 'dashboard.html';
   } catch (err) {
     setAlert(err.message, 'error');
     btn.disabled = false;

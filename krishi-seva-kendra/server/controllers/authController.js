@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Admin = require('../models/Admin');
+const { sendWelcomeEmail } = require('../services/emailService');
 
 function signToken(id, role) {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -12,7 +13,7 @@ function signToken(id, role) {
 // POST /api/auth/register  (FR1)
 exports.registerFarmer = async (req, res, next) => {
   try {
-    const { name, mobile, password, village, address, landSize } = req.body;
+    const { name, mobile, email, password, village, address, landSize } = req.body;
 
     if (!name || !mobile || !password) {
       return res.status(400).json({ message: 'Name, mobile number and password are required.' });
@@ -33,6 +34,7 @@ exports.registerFarmer = async (req, res, next) => {
     const user = await User.create({
       name,
       mobile,
+      email: email || '',
       password: hashed,
       village: village || '',
       address: address || '',
@@ -40,10 +42,11 @@ exports.registerFarmer = async (req, res, next) => {
     });
 
     const token = signToken(user._id, 'Farmer');
+    if (user.email) sendWelcomeEmail(user).catch(console.error);
     res.status(201).json({
       message: 'Registration successful.',
       token,
-      user: { id: user._id, name: user.name, mobile: user.mobile, role: 'Farmer' },
+      user: { id: user._id, name: user.name, mobile: user.mobile, email: user.email, role: 'Farmer' },
     });
   } catch (err) {
     next(err);

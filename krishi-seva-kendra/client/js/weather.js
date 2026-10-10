@@ -47,7 +47,13 @@ async function loadWeather(district) {
 document.getElementById('district-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const district = document.getElementById('district-input').value.trim();
-  loadWeather(district);
+  if (district) loadWeather(district);
 });
 
-loadWeather('');
+// Show prompt instead of auto-loading
+document.getElementById('weather-result').innerHTML = `
+  <div class="card" style="text-align:center; padding:2rem;">
+    <div style="font-size:3rem;">🌤️</div>
+    <h3 style="margin-top:0.5rem;">Check Weather for Your Area</h3>
+    <p class="text-muted">Enter your city or district name above and click Get Weather.</p>
+  </div>`;

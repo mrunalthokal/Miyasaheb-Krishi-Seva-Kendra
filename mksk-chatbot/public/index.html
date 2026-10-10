@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Krishi Mitra — Chatbot Test Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+<div class="test-shell">
+  <h1 style="text-align:center;">Krishi Mitra — standalone test</h1>
+  <p>This page talks directly to the chatbot API on this server. Nothing here touches the main website yet — use this to test before embedding the widget.</p>
+
+  <div class="chat-card">
+    <div class="chat-head">
+      <div class="avatar">🌾</div>
+      <div class="titles">
+        <strong>Krishi Mitra</strong>
+        <span><span class="status-dot" id="statusDot"></span><span id="statusText">Checking connection…</span></span>
+      </div>
+    </div>
+
+    <div class="chip-row" id="chipRow">
+      <button class="chip" data-q="When should I sow wheat?">When to sow wheat?</button>
+      <button class="chip" data-q="Tell me about PM-KISAN">PM-KISAN scheme</button>
+      <button class="chip" data-q="What fertilizers do you have?">Fertilizers in stock</button>
+      <button class="chip" data-q="What's today's cricket score?">Try an off-topic question</button>
+    </div>
+
+    <div class="chat-body" id="chatBody"></div>
+
+    <form class="chat-input-row" id="chatForm">
+      <input type="text" id="chatInput" placeholder="Ask about crops, schemes, pests…" autocomplete="off" required>
+      <button type="submit" aria-label="Send">➤</button>
+    </form>
+  </div>
+
+  <div class="meta-panel" id="metaPanel">
+    Loading service info…
+  </div>
+</div>
+
+<script src="js/chat.js"></script>
+</body>
+</html>

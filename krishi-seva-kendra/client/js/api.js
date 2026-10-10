@@ -25,8 +25,7 @@ async function apiRequest(path, { method = 'GET', body, auth = true } = {}) {
   }
 
   if (!res.ok) {
-    if (res.status === 401 && auth) {
-      // Session expired — clear and let the caller redirect if needed
+    if (res.status === 401) {
       localStorage.removeItem('ksk_token');
       localStorage.removeItem('ksk_user');
     }

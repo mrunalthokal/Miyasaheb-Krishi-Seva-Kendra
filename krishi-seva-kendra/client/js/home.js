@@ -91,3 +91,9 @@ function productCardHtml(p) {
 loadWeatherChip();
 loadCategories();
 loadFeaturedProducts();
+
+// Send welcome email when logged in farmer visits
+if (Auth.isLoggedIn('Farmer') && !sessionStorage.getItem('ksk_visit_email_sent')) {
+  api.post('/visitor-email', {}, {}).catch(() => {});
+  sessionStorage.setItem('ksk_visit_email_sent', '1');
+}

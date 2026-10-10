@@ -20,12 +20,10 @@ async function loadProduct() {
     const p = await api.get(`/products/${productId}`, { auth: false });
     const catName = p.categoryId && p.categoryId.name ? p.categoryId.name : '';
     const badgeClass = p.stockStatus === 'Available' ? 'badge-available' : 'badge-outofstock';
-    const loggedIn = Auth.isLoggedIn('Farmer');
-
     section.innerHTML = `
       <div class="card product-detail-grid">
-        <div class="product-thumb" style="height:260px; border-radius:14px;">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none">${CATEGORY_ICONS[catName] || CATEGORY_ICONS['Seeds']}</svg>
+        <div class="product-thumb" style="height:320px; border-radius:14px; overflow:hidden; background:#f5f5f5;">
+          ${p.imageUrl ? `<img src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:14px;padding:12px;">` : `<svg width="64" height="64" viewBox="0 0 24 24" fill="none">${CATEGORY_ICONS[catName] || CATEGORY_ICONS['Seeds']}</svg>`}
         </div>
         <div>
           <span class="product-cat">${escapeHtml(catName)}</span>
@@ -44,10 +42,12 @@ async function loadProduct() {
       inquiryArea.innerHTML = `<div class="alert alert-error">This product is currently out of stock. Please check back later.</div>`;
       return;
     }
-    if (!loggedIn) {
+
+    if (!Auth.isLoggedIn('Farmer')) {
       inquiryArea.innerHTML = `
         <div class="alert" style="background: var(--leaf-050); color: var(--leaf-900); border:1px solid var(--line);">
-          <a href="login.html">Log in</a> or <a href="register.html">register</a> to request this product.
+          <a href="login.html?redirect=${encodeURIComponent(window.location.href)}">Log in</a> or 
+          <a href="register.html?redirect=${encodeURIComponent(window.location.href)}">register</a> to request or buy this product.
         </div>`;
       return;
     }
@@ -68,6 +68,7 @@ async function loadProduct() {
             <textarea id="remarks" rows="2" placeholder="Any delivery preference or note for the center"></textarea>
           </div>
           <button type="submit" class="btn btn-primary" id="inquiry-submit">Submit request</button>
+          <button type="button" class="btn btn-primary" id="buy-now" style="margin-left:0.5rem; background:var(--leaf-700);">Buy Now 🛒</button>
         </form>
       </div>`;
 
@@ -81,20 +82,80 @@ async function loadProduct() {
         return;
       }
       const btn = document.getElementById('inquiry-submit');
+      const buyBtn = document.getElementById('buy-now');
       btn.disabled = true;
       btn.textContent = 'Submitting…';
       try {
-        await api.post('/inquiries', {
+        const inquiry = await api.post('/inquiries', {
           productId: p._id,
           quantity,
           remarks: document.getElementById('remarks').value.trim(),
+          total: p.price * quantity,
         });
         showToast('Request submitted. Track it in My requests.');
-        window.location.href = 'my-inquiries.html';
+        buyBtn.disabled = false;
+        buyBtn.dataset.inquiryId = inquiry._id;
+        btn.textContent = 'Submitted ✓';
       } catch (err) {
         alertEl.innerHTML = `<div class="alert alert-error">${escapeHtml(err.message)}</div>`;
         btn.disabled = false;
         btn.textContent = 'Submit request';
+      }
+    });
+
+    document.getElementById('buy-now').addEventListener('click', async () => {
+      const alertEl = document.getElementById('inquiry-alert');
+      const quantity = Number(document.getElementById('quantity').value);
+      if (!quantity || quantity < 1) {
+        alertEl.innerHTML = `<div class="alert alert-error">Enter a valid quantity.</div>`;
+        return;
+      }
+      const buyBtn = document.getElementById('buy-now');
+      buyBtn.disabled = true;
+      buyBtn.textContent = 'Processing…';
+      try {
+        // Step 1: create inquiry
+        const inquiry = await api.post('/inquiries', {
+          productId: p._id,
+          quantity,
+          remarks: document.getElementById('remarks').value.trim(),
+          total: p.price * quantity,
+        });
+        const order = await api.post('/payment/create-order', { inquiryId: inquiry._id });
+        const options = {
+          key: order.key,
+          amount: order.amount,
+          currency: 'INR',
+          name: 'Krishi Seva Kendra',
+          description: escapeHtml(p.name),
+          order_id: order.orderId,
+          handler: async (response) => {
+            try {
+              await api.post('/payment/verify', {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                inquiryId: inquiry._id,
+              });
+              showToast('Payment successful! 🎉');
+              window.location.href = 'my-inquiries.html';
+            } catch (err) {
+              alertEl.innerHTML = `<div class="alert alert-error">Payment verification failed. Contact support.</div>`;
+            }
+          },
+          prefill: { contact: '' },
+          theme: { color: '#2e7d32' },
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.on('payment.failed', () => {
+          alertEl.innerHTML = `<div class="alert alert-error">Payment failed. Please try again.</div>`;
+        });
+        rzp.open();
+      } catch (err) {
+        alertEl.innerHTML = `<div class="alert alert-error">${escapeHtml(err.message)}</div>`;
+      } finally {
+        buyBtn.disabled = false;
+        buyBtn.textContent = 'Buy Now 🛒';
       }
     });
   } catch (err) {

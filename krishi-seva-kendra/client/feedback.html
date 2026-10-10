@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Feedback - Krishi Seva Kendra</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/feedback.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="navbar"></div>
+
+    <main class="feedback-container">
+
+        <div class="feedback-card">
+
+            <h1>🌾 Farmer Feedback</h1>
+
+            <p class="feedback-subtitle">
+                Your feedback helps us improve Krishi Seva Kendra.
+            </p>
+
+            <form id="feedbackForm">
+
+                <!-- Feedback Type -->
+                <div class="form-group">
+                    <label for="category">Feedback Type</label>
+
+                    <select id="category" required>
+                        <option value="">Select feedback type</option>
+                        <option value="Product">Product</option>
+                        <option value="Service">Service</option>
+                        <option value="Website">Website</option>
+                        <option value="Chatbot">Chatbot</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Rating -->
+                <div class="form-group">
+
+                    <label>How would you rate our service?</label>
+
+                    <div class="rating">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5">★</label>
+
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4">★</label>
+
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3">★</label>
+
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2">★</label>
+
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1">★</label>
+                    </div>
+
+                </div>
+
+                <!-- Feedback -->
+                <div class="form-group">
+
+                    <label for="message">Your Feedback</label>
+
+                    <textarea
+                        id="message"
+                        rows="6"
+                        maxlength="1000"
+                        placeholder="Write your feedback here..."
+                        required>
+                    </textarea>
+
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Submit Feedback
+                </button>
+
+            </form>
+
+            <div id="feedbackMessage"></div>
+
+        </div>
+
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/feedback.js"></script>
+
+    <script>
+        initLayout('feedback');
+    </script>
+
+</body>
+</html>
+

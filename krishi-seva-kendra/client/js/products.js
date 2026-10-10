@@ -9,16 +9,23 @@ const CATEGORY_ICONS = {
 
 let categories = [];
 let debounceTimer = null;
-function getProductImage(productName) {
-  if (productName.includes('Cotton')) {
-     return 'images/cotten_hybrid.jpg';
-
-  }
-
-  if (productName.includes('Soybean')) {
-    return 'images/soyabean.jpg';
-  }
-
+function getProductImage(p) {
+  if (p.imageUrl) return p.imageUrl;
+  const name = p.name || '';
+  if (name.includes('Cotton')) return 'images/cotten_hybrid.jpg';
+  if (name.includes('Soybean')) return 'images/soyabean.jpg';
+  if (name.includes('Wheat')) return 'images/wheat.jpg';
+  if (name.includes('Onion')) return 'images/onion.jpg';
+  if (name.includes('Tomato')) return 'images/tomato.jpg';
+  if (name.includes('Maize')) return 'images/Maize.jpg';
+  if (name.includes('DAP')) return 'images/dap.jpg';
+  if (name.includes('Urea')) return 'images/urea.jpg';
+  if (name.includes('Vermi')) return 'images/vermicompost.jpg';
+  if (name.includes('Neem Oil')) return 'images/neem-oil.jpg';
+  if (name.includes('Chlorpyrifos')) return 'images/chlorpyrifos.jpg';
+  if (name.includes('Khurpi') || name.includes('Hoe') || name.includes('Sickle')) return 'images/khurpi.jpg';
+  if (name.includes('Battery Sprayer') || name.includes('Soil Testing')) return 'images/battery-sprayer.jpg';
+  if (name.includes('Drip') || name.includes('Wheel') || name.includes('Tarpaulin')) return 'images/drip-irrigation.jpg';
   return 'images/cotten.jpg';
 }
 function productCardHtml(p) {
@@ -26,7 +33,7 @@ function productCardHtml(p) {
   const badgeClass = p.stockStatus === 'Available' ? 'badge-available' : 'badge-outofstock';
   return `
     <a href="product-details.html?id=${p._id}" class="product-card" style="text-decoration:none; color:inherit;">
-      <div class="product-thumb"><img src="${getProductImage(p.name)}" alt="${escapeHtml(p.name)}"></div>
+      <div class="product-thumb"><img src="${getProductImage(p)}" alt="${escapeHtml(p.name)}"></div>
       <div class="product-body">
         <span class="product-cat">${escapeHtml(catName)}</span>
         <h3 class="product-name">${escapeHtml(p.name)}</h3>

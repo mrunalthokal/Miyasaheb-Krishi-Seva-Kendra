@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 
 const inquirySchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
     productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
     quantity: { type: Number, required: true, min: 1 },
     remarks: { type: String, default: '' },
+    total: { type: Number, default: 0 },
+    paymentStatus: { type: String, enum: ['pending', 'paid'], default: 'pending' },
+    paymentId: { type: String, default: '' },
     status: {
       type: String,
       enum: ['Pending', 'Approved', 'Fulfilled', 'Rejected'],

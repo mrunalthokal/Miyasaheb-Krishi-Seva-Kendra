@@ -13,13 +13,14 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
   const name = document.getElementById('name').value.trim();
   const mobile = document.getElementById('mobile').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const village = document.getElementById('village').value.trim();
   const landSize = document.getElementById('landSize').value;
   const address = document.getElementById('address').value.trim();
 
-  if (!name || !mobile || !password) {
-    setAlert('Please fill in name, mobile number and password.', 'error');
+  if (!name || !mobile || !password || !email) {
+    setAlert('Please fill in name, mobile number, email and password.', 'error');
     return;
   }
   if (!/^\d{10}$/.test(mobile)) {
@@ -38,12 +39,13 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
   try {
     const data = await api.post(
       '/auth/register',
-      { name, mobile, password, village, address, landSize: landSize ? Number(landSize) : null },
+      { name, mobile, email, password, village, address, landSize: landSize ? Number(landSize) : null },
       { auth: false }
     );
     Auth.saveSession(data.token, data.user);
     showToast('Welcome to Krishi Seva Kendra!');
-    window.location.href = 'dashboard.html';
+    const redirect = new URLSearchParams(window.location.search).get('redirect');
+    window.location.href = redirect || 'dashboard.html';
   } catch (err) {
     setAlert(err.message, 'error');
     btn.disabled = false;

@@ -15,20 +15,29 @@ function render(filterStatus) {
   const list = filterStatus ? allInquiries.filter((i) => i.status === filterStatus) : allInquiries;
 
   if (list.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-muted text-center">No requests found. <a href="products.html">Browse products</a>.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="text-muted text-center">No requests from the last 7 days. <a href="products.html">Browse products</a>.</td></tr>`;
     return;
   }
 
   tbody.innerHTML = list
     .map(
-      (i) => `
+      (i) => {
+        const isCod = i.paymentMethod === 'cod';
+        const isCompleteCod = isCod && i.status === 'Fulfilled';
+        const statusLabel = isCompleteCod ? 'Complete' : i.status;
+        const paymentLabel = isCod
+          ? 'Cash on Delivery'
+          : `Online${i.paymentStatus === 'pending' ? '<br><span class="badge badge-pending">Payment pending</span>' : '<br><span class="badge badge-fulfilled">Paid</span>'}`;
+        return `
     <tr>
       <td>${escapeHtml(i.productId ? i.productId.name : 'Product removed')}</td>
       <td>${i.quantity}</td>
+      <td>${paymentLabel}</td>
       <td class="text-muted">${escapeHtml(i.remarks) || '—'}</td>
-      <td><span class="badge ${STATUS_BADGE[i.status]}">${i.status}</span></td>
+      <td><span class="badge ${STATUS_BADGE[i.status]}">${statusLabel}</span></td>
       <td>${formatDate(i.createdAt)}</td>
     </tr>`
+      }
     )
     .join('');
 }

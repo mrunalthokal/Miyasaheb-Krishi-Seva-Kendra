@@ -28,7 +28,7 @@ async function loadProduct() {
         <div>
           <span class="product-cat">${escapeHtml(catName)}</span>
           <h2 style="margin-top:4px;">${escapeHtml(p.name)}</h2>
-          <span class="badge ${badgeClass}" style="margin-bottom:1rem; display:inline-block;">${p.stockStatus}</span>
+          <span class="badge ${badgeClass}" style="margin-bottom:1rem; display:inline-block;">${p.stockStatus === 'Available' ? 'Available' : 'Unavailable'}</span>
           <p>${escapeHtml(p.description || 'No description provided.')}</p>
           <div class="product-price" style="font-size:1.4rem; margin-bottom:1.4rem;">${formatCurrency(p.price)} <span style="font-size:0.9rem;">/ ${escapeHtml(p.unit)}</span></div>
 
@@ -39,7 +39,7 @@ async function loadProduct() {
 
     const inquiryArea = document.getElementById('inquiry-area');
     if (p.stockStatus !== 'Available') {
-      inquiryArea.innerHTML = `<div class="alert alert-error">This product is currently out of stock. Please check back later.</div>`;
+      inquiryArea.innerHTML = `<div class="alert alert-error">This product is currently unavailable. Please check back later.</div>`;
       return;
     }
 
@@ -67,8 +67,15 @@ async function loadProduct() {
             <label for="remarks">Remarks (optional)</label>
             <textarea id="remarks" rows="2" placeholder="Any delivery preference or note for the center"></textarea>
           </div>
+          <div class="field">
+            <label for="payment-method">Payment method</label>
+            <select id="payment-method">
+              <option value="online">Pay online</option>
+              <option value="cod">Cash on Delivery</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary" id="inquiry-submit">Submit request</button>
-          <button type="button" class="btn btn-primary" id="buy-now" style="margin-left:0.5rem; background:var(--leaf-700);">Buy Now 🛒</button>
+          <button type="button" class="btn btn-primary" id="buy-now" style="margin-left:0.5rem; background:var(--leaf-700);">Place order 🛒</button>
         </form>
       </div>`;
 
@@ -90,7 +97,6 @@ async function loadProduct() {
           productId: p._id,
           quantity,
           remarks: document.getElementById('remarks').value.trim(),
-          total: p.price * quantity,
         });
         showToast('Request submitted. Track it in My requests.');
         buyBtn.disabled = false;
@@ -119,8 +125,13 @@ async function loadProduct() {
           productId: p._id,
           quantity,
           remarks: document.getElementById('remarks').value.trim(),
-          total: p.price * quantity,
+          paymentMethod: document.getElementById('payment-method').value,
         });
+        if (inquiry.paymentMethod === 'cod') {
+          showToast('Order placed with Cash on Delivery. Track it in My requests.');
+          window.location.href = 'my-inquiries.html';
+          return;
+        }
         const order = await api.post('/payment/create-order', { inquiryId: inquiry._id });
         const options = {
           key: order.key,

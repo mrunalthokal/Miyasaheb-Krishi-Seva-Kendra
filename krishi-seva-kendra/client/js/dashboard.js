@@ -29,13 +29,17 @@ async function loadDashboard() {
     tbody.innerHTML = inquiries
       .slice(0, 5)
       .map(
-        (i) => `
+        (i) => {
+          const isCompleteCod = i.paymentMethod === 'cod' && i.status === 'Fulfilled';
+          const statusLabel = isCompleteCod ? 'Complete' : i.status;
+          return `
       <tr>
         <td>${escapeHtml(i.productId ? i.productId.name : 'Product removed')}</td>
         <td>${i.quantity}</td>
-        <td><span class="badge ${STATUS_BADGE[i.status]}">${i.status}</span></td>
+        <td><span class="badge ${STATUS_BADGE[i.status]}">${statusLabel}</span></td>
         <td>${formatDate(i.createdAt)}</td>
       </tr>`
+        }
       )
       .join('');
   } catch (err) {

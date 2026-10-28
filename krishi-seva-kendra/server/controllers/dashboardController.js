@@ -17,3 +17,18 @@ exports.getSummary = async (req, res, next) => {
     next(err);
   }
 };
+
+// GET /api/admin/latest-inquiries (Admin dashboard; last 7 days)
+exports.getLatestInquiries = async (req, res, next) => {
+  try {
+    const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const inquiries = await Inquiry.find({ createdAt: { $gte: oneWeekAgo } })
+      .populate('productId', 'name')
+      .populate('userId', 'name')
+      .sort({ createdAt: -1 })
+      .limit(6);
+    res.json(inquiries);
+  } catch (err) {
+    next(err);
+  }
+};

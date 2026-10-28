@@ -39,7 +39,7 @@ function productCardHtml(p) {
         <h3 class="product-name">${escapeHtml(p.name)}</h3>
         <div class="product-price">${formatCurrency(p.price)} <span>/ ${escapeHtml(p.unit)}</span></div>
         <div class="product-foot">
-          <span class="badge ${badgeClass}">${p.stockStatus}</span>
+          <span class="badge ${badgeClass}">${p.stockStatus === 'Available' ? 'Available' : 'Unavailable'}</span>
         </div>
       </div>
     </a>`;
@@ -113,7 +113,8 @@ async function fetchAndRender() {
     }
     grid.innerHTML = products.map(productCardHtml).join('');
   } catch (err) {
-    grid.innerHTML = `<p class="text-muted">Could not load products right now.</p>`;
+    console.error('Could not load products:', err);
+    grid.innerHTML = `<p class="text-muted">Could not load products: ${escapeHtml(err.message || 'Unknown error')}</p>`;
   }
 }
 

@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
     description: { type: String, default: '' },
     price: { type: Number, required: true },
     unit: { type: String, required: true, default: 'unit' },
-    stockStatus: { type: String, enum: ['Available', 'Out of Stock'], default: 'Available' },
+    stockStatus: { type: String, enum: ['Available', 'Unavailable'], default: 'Available' },
     imageUrl: { type: String, default: '' },
   },
   { timestamps: true }

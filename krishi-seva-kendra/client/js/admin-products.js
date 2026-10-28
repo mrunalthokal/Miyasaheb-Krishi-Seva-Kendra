@@ -37,7 +37,7 @@ function renderRows() {
       <td>${escapeHtml(p.name)}</td>
       <td class="text-muted">${escapeHtml(p.categoryId ? p.categoryId.name : '')}</td>
       <td>${formatCurrency(p.price)} <span class="text-muted">/ ${escapeHtml(p.unit)}</span></td>
-      <td><span class="badge ${badgeClass(p.stockStatus)}">${p.stockStatus}</span></td>
+      <td><span class="badge ${badgeClass(p.stockStatus)}">${p.stockStatus === 'Available' ? 'Available' : 'Unavailable'}</span></td>
       <td class="flex-gap">
         <button class="btn btn-outline btn-sm" data-edit="${p._id}">Edit</button>
         <button class="btn btn-danger btn-sm" data-delete="${p._id}">Delete</button>

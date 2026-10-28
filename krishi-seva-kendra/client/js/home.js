@@ -66,6 +66,12 @@ async function loadFeaturedProducts() {
       return;
     }
     grid.innerHTML = featured.map(productCardHtml).join('');
+    grid.querySelectorAll('.featured-product-image').forEach((image) => {
+      image.addEventListener('error', () => {
+        const category = image.dataset.category;
+        image.outerHTML = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none">${CATEGORY_ICONS[category] || CATEGORY_ICONS['Seeds']}</svg>`;
+      }, { once: true });
+    });
   } catch (err) {
     grid.innerHTML = `<p class="text-muted">Could not load products.</p>`;
   }
@@ -74,15 +80,18 @@ async function loadFeaturedProducts() {
 function productCardHtml(p) {
   const catName = p.categoryId && p.categoryId.name ? p.categoryId.name : '';
   const badgeClass = p.stockStatus === 'Available' ? 'badge-available' : 'badge-outofstock';
+  const productImage = p.imageUrl
+    ? `<img class="featured-product-image" src="${escapeHtml(p.imageUrl)}" data-category="${escapeHtml(catName)}" alt="${escapeHtml(p.name)}" loading="lazy">`
+    : `<svg width="34" height="34" viewBox="0 0 24 24" fill="none">${CATEGORY_ICONS[catName] || CATEGORY_ICONS['Seeds']}</svg>`;
   return `
     <a href="product-details.html?id=${p._id}" class="product-card" style="text-decoration:none; color:inherit;">
-      <div class="product-thumb"><svg width="34" height="34" viewBox="0 0 24 24" fill="none">${CATEGORY_ICONS[catName] || CATEGORY_ICONS['Seeds']}</svg></div>
+      <div class="product-thumb">${productImage}</div>
       <div class="product-body">
         <span class="product-cat">${escapeHtml(catName)}</span>
         <h3 class="product-name">${escapeHtml(p.name)}</h3>
         <div class="product-price">${formatCurrency(p.price)} <span>/ ${escapeHtml(p.unit)}</span></div>
         <div class="product-foot">
-          <span class="badge ${badgeClass}">${p.stockStatus}</span>
+          <span class="badge ${badgeClass}">${p.stockStatus === 'Available' ? 'Available' : 'Unavailable'}</span>
         </div>
       </div>
     </a>`;

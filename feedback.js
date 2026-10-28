@@ -1,59 +1,29 @@
-const feedbackForm = document.getElementById('feedback-form');
-const feedbackMessage = document.getElementById('feedback-message');
+const mongoose = require('mongoose');
 
-feedbackForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+const feedbackSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
+      required: true,
+      enum: ['Product', 'Service', 'Website', 'Chatbot', 'Other']
+    },
 
-  const category = document.getElementById('category').value;
-  const rating = document.querySelector(
-    'input[name="rating"]:checked'
-  )?.value;
-  const message = document.getElementById('message').value.trim();
+    rating: {
+      type: Number,
+      required: true,
+      min: 1,
+      max: 5
+    },
 
-  if (!category || !rating || !message) {
-    feedbackMessage.textContent = 'Please fill all fields.';
-    feedbackMessage.className = 'error';
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      'http://localhost:5000/api/feedback',
-      {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify({
-          category,
-          rating: Number(rating),
-          message
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Failed to submit feedback');
+    message: {
+      type: String,
+      required: true,
+      trim: true
     }
-
-    feedbackMessage.textContent =
-      'Thank you! Your feedback has been submitted successfully.';
-
-    feedbackMessage.className = 'success';
-
-    feedbackForm.reset();
-
-  } catch (error) {
-
-    console.error(error);
-
-    feedbackMessage.textContent =
-      'Unable to submit feedback. Please try again.';
-
-    feedbackMessage.className = 'error';
+  },
+  {
+    timestamps: true
   }
-});
+);
+
+module.exports = mongoose.model('Feedback', feedbackSchema);
